@@ -29,6 +29,9 @@
           "level": "error",
           "fix": "safe"
         }
+      },
+      "style": {
+        "useImportType": "off"
       }
     }
   },
@@ -42,6 +45,9 @@
       "quoteProperties": "asNeeded",
       "semicolons": "always",
       "trailingCommas": "all"
+    },
+    "parser": {
+      "unsafeParameterDecoratorsEnabled": true
     }
   }
 }
