@@ -1,21 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { env } from 'src/shared/config/env';
-
-export interface Ship24TrackingResponse {
-  data: {
-    tracker: {
-      trackerId: string;
-      trackingNumber: string;
-      shipmentReference: string;
-      courierCode: string[];
-      clientTrackerId: string;
-      isSubscribed: boolean;
-      isTracked: boolean;
-      createdAt: string;
-    };
-  };
-}
+import {
+  CreateTrackingResponse,
+  TrackingResultsResponse,
+} from './entities/ship24Tracking';
 
 @Injectable()
 export class Ship24Service {
@@ -23,7 +12,7 @@ export class Ship24Service {
 
   async createTracking(trackingNumber: string) {
     try {
-      const { data } = await axios.post<Ship24TrackingResponse>(
+      const { data } = await axios.post<CreateTrackingResponse>(
         `${this.ship24BaseUrl}/trackers`,
         { trackingNumber },
         {
@@ -37,6 +26,23 @@ export class Ship24Service {
         'Failed to create tracking on Ship24',
         HttpStatus.BAD_REQUEST,
       );
+    }
+  }
+
+  async getTrackingDetails(ship24TrackingId: string) {
+    try {
+      const { data } = await axios.get<TrackingResultsResponse>(
+        `${this.ship24BaseUrl}/trackers/${ship24TrackingId}/results`,
+        {
+          headers: {
+            Authorization: `Bearer ${env.ship24ApiKey}`,
+          },
+        },
+      );
+
+      return data;
+    } catch (error) {
+      throw new Error(error);
     }
   }
 }

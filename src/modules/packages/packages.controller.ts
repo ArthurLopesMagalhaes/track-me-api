@@ -16,11 +16,11 @@ export class PackagesController {
     return this.packagesService.findAllByUserId(userId);
   }
 
-  @Get(':packageId')
+  @Get(':ship24TrackingId')
   findOneById(
-    @Param('packageId') packageId: string,
+    @Param('ship24TrackingId') ship24TrackingId: string,
     @Query('userId') userId: string,
   ) {
-    return this.packagesService.findOneById(packageId, userId);
+    return this.packagesService.findOneById(ship24TrackingId, userId);
   }
 }

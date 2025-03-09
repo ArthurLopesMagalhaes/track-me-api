@@ -1,15 +1,18 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PackagesRepository } from 'src/shared/database/repositories/packages.repositories';
 import { CreatePackageDto } from './dto/create-package.dto';
 import { Ship24Service } from './ship24.service';
-import { ValidatePackageOwnershipService } from './validate-package-ownership.service';
 
 @Injectable()
 export class PackagesService {
   constructor(
     private readonly packagesRepo: PackagesRepository,
     private readonly ship24Service: Ship24Service,
-    private readonly validatePackageOwnershipService: ValidatePackageOwnershipService,
   ) {}
 
   async create(createPackageDto: CreatePackageDto) {
@@ -49,18 +52,20 @@ export class PackagesService {
     return packagesList;
   }
 
-  async findOneById(packageId: string, userId: string) {
-    await this.validatePackageOwnershipService.validate(packageId, userId);
+  async findOneById(ship24TrackingId: string, userId: string) {
+    const isOwner = await this.packagesRepo.searchPackageWithOwnershipCheck(
+      ship24TrackingId,
+      userId,
+    );
 
-    const { data: packageData, error } =
-      await this.packagesRepo.findByPackageId(packageId);
-
-    if (error) {
-      throw new HttpException(
-        'Failed to load packages',
-        HttpStatus.BAD_REQUEST,
-      );
+    if (!isOwner) {
+      throw new NotFoundException('Package not found');
     }
+
+    // const { data: packageData } =
+    //   await this.ship24Service.getTrackingDetails(ship24TrackingId);
+    const packageData =
+      await this.ship24Service.getTrackingDetails(ship24TrackingId);
 
     return packageData;
   }
