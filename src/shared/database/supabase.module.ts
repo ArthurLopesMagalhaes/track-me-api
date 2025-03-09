@@ -1,9 +1,13 @@
 import { Global, Module } from '@nestjs/common';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
+import { env } from '../config/env';
+import { Database } from './database.types';
 
-const supabaseClient: SupabaseClient = createClient(
-  'https://vcajqehiuwtwnpwxhzlt.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZjYWpxZWhpdXd0d25wd3hoemx0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE0NDcxMzksImV4cCI6MjA1NzAyMzEzOX0.wZfShUI4xJDZgVBhKCBD6PyXYmtl_MTtUlz-cFlsDfM',
+export type TypedSupabaseClient = SupabaseClient<Database>;
+
+const supabaseClient: SupabaseClient<Database> = createClient<Database>(
+  env.supabaseURL,
+  env.supabaseKey,
 );
 
 @Global()
