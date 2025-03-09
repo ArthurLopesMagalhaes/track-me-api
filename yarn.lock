@@ -5629,7 +5629,7 @@ strtok3@^9.0.1:
     "@tokenizer/token" "^0.3.0"
     peek-readable "^5.3.1"
 
-supabase@>=1.8.1:
+supabase@^2.15.8:
   version "2.15.8"
   resolved "https://registry.yarnpkg.com/supabase/-/supabase-2.15.8.tgz#0cd7cf6a58c14b40e26f4e1a6fe21bf35ea9f698"
   integrity sha512-yY4kVpdd7x9u5QqTW/8zUXIrMgdkBDGqQwkDugBLe8uoFdH9tVZKt0L5RmuM21RJ0MEQkby2sQrTfiXvgGyx9w==

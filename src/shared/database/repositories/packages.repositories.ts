@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreatePackageDto } from 'src/modules/packages/dto/create-package.dto';
 import { TypedSupabaseClient } from '../supabase.module';
 
 @Injectable()
@@ -8,14 +7,31 @@ export class PackagesRepository {
     @Inject('SUPABASE_CLIENT')
     private readonly supabaseService: TypedSupabaseClient,
   ) {}
-  create(createDto: CreatePackageDto) {
-    return this.supabaseService.from('packages').insert(createDto);
+  create({ name, tracking_code, user_id, ship24_tracking_id }) {
+    return this.supabaseService
+      .from('packages')
+      .insert({ name, tracking_code, user_id, ship24_tracking_id });
   }
 
-  findById(userId: string) {
+  findByUserId(userId: string) {
     return this.supabaseService
       .from('packages')
       .select('*')
       .eq('user_id', userId);
+  }
+
+  findByPackageId(packageId: string) {
+    return this.supabaseService
+      .from('packages')
+      .select('*')
+      .eq('ship24_tracking_id', packageId);
+  }
+
+  searchPackageWithOwnershipCheck(packageId: string, userId: string) {
+    return this.supabaseService
+      .from('packages')
+      .select('*')
+      .eq('user_id', userId)
+      .eq('ship24_tracking_id', packageId);
   }
 }

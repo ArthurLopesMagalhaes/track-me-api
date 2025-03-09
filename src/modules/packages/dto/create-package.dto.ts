@@ -12,8 +12,4 @@ export class CreatePackageDto {
   @IsNotEmpty()
   @IsUUID()
   user_id: string;
-
-  @IsNotEmpty()
-  @IsUUID()
-  ship24_tracking_id: string;
 }
