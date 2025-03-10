@@ -17,6 +17,10 @@ class Env {
   @IsString()
   @IsNotEmpty()
   ship24ApiKey: string;
+
+  @IsString()
+  @IsNotEmpty()
+  ship24WebhookSecret: string;
 }
 
 export const env: Env = plainToInstance(Env, {
@@ -24,6 +28,7 @@ export const env: Env = plainToInstance(Env, {
   supabaseKey: process.env.SUPABASE_KEY,
   ship24BaseURL: process.env.SHIP_24_BASE_URL,
   ship24ApiKey: process.env.SHIP_24_KEY,
+  ship24WebhookSecret: process.env.SHIP_24_WEBHOOK_SECRET,
 });
 
 const errors = validateSync(env);

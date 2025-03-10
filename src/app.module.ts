@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './modules/auth/auth.module';
 import { PackagesModule } from './modules/packages/packages.module';
 
+import { WebhookModule } from './modules/webhook/webhook.module';
 import { DatabaseModule } from './shared/database/database.module';
 import { SupabaseModule } from './shared/database/supabase.module';
 
@@ -13,6 +14,7 @@ import { SupabaseModule } from './shared/database/supabase.module';
     DatabaseModule,
     SupabaseModule,
     PackagesModule,
+    WebhookModule,
   ],
   controllers: [],
   providers: [],

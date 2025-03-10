@@ -9,6 +9,7 @@ import {
 @Injectable()
 export class Ship24Service {
   private readonly ship24BaseUrl = env.ship24BaseURL;
+  private readonly ship24ApiKey = env.ship24BaseURL;
 
   async createTracking(trackingNumber: string) {
     try {
@@ -16,7 +17,7 @@ export class Ship24Service {
         `${this.ship24BaseUrl}/trackers`,
         { trackingNumber },
         {
-          headers: { Authorization: `Bearer ${env.ship24ApiKey}` },
+          headers: { Authorization: `Bearer ${this.ship24ApiKey}` },
         },
       );
 
