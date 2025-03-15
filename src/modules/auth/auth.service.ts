@@ -38,4 +38,14 @@ export class AuthService {
 
     return { user };
   }
+
+  async signout() {
+    const signedOut = await this.usersRepo.signout();
+
+    if (signedOut instanceof AuthError) {
+      throw new HttpException(signedOut.message, HttpStatus.BAD_REQUEST);
+    }
+
+    return signedOut;
+  }
 }

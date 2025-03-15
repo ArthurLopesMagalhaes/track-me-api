@@ -35,4 +35,8 @@ export class UsersRepository {
       return { user };
     }
   }
+
+  signout() {
+    return this.supabaseService.auth.signOut();
+  }
 }
