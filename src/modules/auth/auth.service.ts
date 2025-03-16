@@ -24,7 +24,7 @@ export class AuthService {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
 
-    return { user };
+    return { user: user.user };
   }
 
   async signup(signupDto: SignupDto) {

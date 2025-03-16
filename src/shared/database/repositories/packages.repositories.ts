@@ -13,11 +13,16 @@ export class PackagesRepository {
       .insert({ name, tracking_code, user_id, ship24_tracking_id });
   }
 
-  findByUserId(userId: string) {
-    return this.supabaseService
+  findByUserId(userId: string, options: { status: string }) {
+    let query = this.supabaseService
       .from('packages')
       .select('*')
       .eq('user_id', userId);
+    if (options.status !== 'all') {
+      query = query.eq('status', options.status);
+    }
+
+    return query;
   }
 
   findByPackageId(packageId: string) {

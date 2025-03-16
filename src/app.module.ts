@@ -7,6 +7,7 @@ import { WebhookModule } from './modules/webhook/webhook.module';
 import { DatabaseModule } from './shared/database/database.module';
 import { SupabaseModule } from './shared/database/supabase.module';
 import { NotificationModule } from './modules/notification/notification.module';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { NotificationModule } from './modules/notification/notification.module';
     PackagesModule,
     WebhookModule,
     NotificationModule,
+    UserModule,
   ],
   controllers: [],
   providers: [],

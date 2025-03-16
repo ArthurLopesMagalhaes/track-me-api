@@ -32,7 +32,7 @@ export class UsersRepository {
         return undefined;
       }
 
-      return { user };
+      return { user: user.data.user };
     }
   }
 

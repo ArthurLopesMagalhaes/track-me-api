@@ -38,9 +38,11 @@ export class PackagesService {
     return packageData;
   }
 
-  async findAllByUserId(userId: string) {
-    const { data: packagesList, error } =
-      await this.packagesRepo.findByUserId(userId);
+  async findAllByUserId(userId: string, options: { status: string }) {
+    const { data: packagesList, error } = await this.packagesRepo.findByUserId(
+      userId,
+      options,
+    );
 
     if (error) {
       throw new HttpException(

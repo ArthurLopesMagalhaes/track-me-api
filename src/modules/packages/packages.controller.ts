@@ -12,8 +12,12 @@ export class PackagesController {
   }
 
   @Get()
-  findAllByUserId(@Query('userId') userId: string) {
-    return this.packagesService.findAllByUserId(userId);
+  findAllByUserId(
+    @Query('userId') userId: string,
+    @Query('status') status: string,
+  ) {
+    const options = { userId, status };
+    return this.packagesService.findAllByUserId(userId, options);
   }
 
   @Get(':ship24TrackingId')
