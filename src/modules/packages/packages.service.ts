@@ -16,10 +16,12 @@ export class PackagesService {
   ) {}
 
   async create(createPackageDto: CreatePackageDto) {
-    const { name, tracking_code, user_id } = createPackageDto;
+    const { name, tracking_code, user_id, courier_code } = createPackageDto;
 
-    const ship24Response =
-      await this.ship24Service.createTracking(tracking_code);
+    const ship24Response = await this.ship24Service.createTracking({
+      courierCode: courier_code,
+      trackingNumber: tracking_code,
+    });
 
     const { data: packageData, error } = await this.packagesRepo
       .create({

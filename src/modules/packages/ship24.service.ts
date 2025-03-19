@@ -9,13 +9,16 @@ import {
 @Injectable()
 export class Ship24Service {
   private readonly ship24BaseUrl = env.ship24BaseURL;
-  private readonly ship24ApiKey = env.ship24BaseURL;
+  private readonly ship24ApiKey = env.ship24ApiKey;
 
-  async createTracking(trackingNumber: string) {
+  async createTracking({
+    trackingNumber,
+    courierCode,
+  }: { trackingNumber: string; courierCode: string }) {
     try {
       const { data } = await axios.post<CreateTrackingResponse>(
         `${this.ship24BaseUrl}/trackers`,
-        { trackingNumber },
+        { trackingNumber, courierCode },
         {
           headers: { Authorization: `Bearer ${this.ship24ApiKey}` },
         },

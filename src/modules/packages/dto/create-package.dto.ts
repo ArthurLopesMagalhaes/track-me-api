@@ -1,4 +1,11 @@
-import { IsNotEmpty, IsString, IsUUID, MinLength } from 'class-validator';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsString,
+  IsUUID,
+  MinLength,
+} from 'class-validator';
+import { Couriers } from '../entities/couriers';
 
 export class CreatePackageDto {
   @IsString()
@@ -12,4 +19,8 @@ export class CreatePackageDto {
   @IsNotEmpty()
   @IsUUID()
   user_id: string;
+
+  @IsNotEmpty()
+  @IsEnum(Couriers)
+  courier_code: string;
 }
