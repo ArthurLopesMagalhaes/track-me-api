@@ -66,8 +66,6 @@ export class PackagesService {
       throw new NotFoundException('Package not found');
     }
 
-    // const { data: packageData } =
-    //   await this.ship24Service.getTrackingDetails(ship24TrackingId);
     const packageData =
       await this.ship24Service.getTrackingDetails(ship24TrackingId);
 
